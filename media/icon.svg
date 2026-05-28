@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+    <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1e40af"/>
+            <stop offset="1" stop-color="#0f172a"/>
+        </linearGradient>
+    </defs>
+    <rect width="128" height="128" rx="20" fill="url(#bg)"/>
+
+    <!-- Git branch line + commits on the left -->
+    <line x1="28" y1="28" x2="28" y2="96" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="28" cy="28" r="6" fill="#94a3b8"/>
+    <circle cx="28" cy="56" r="6" fill="#94a3b8"/>
+    <circle cx="28" cy="96" r="7" fill="#22d3ee" stroke="#22d3ee" stroke-width="2"/>
+
+    <!-- Arrow from selected commit to remote server stack -->
+    <path d="M 38 96 Q 56 96, 64 80 T 84 56"
+                stroke="#22d3ee" stroke-width="4" fill="none"
+                stroke-linecap="round"/>
+    <path d="M 76 50 L 88 56 L 78 64"
+                stroke="#22d3ee" stroke-width="4" fill="none"
+                stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Remote server stack on the right -->
+    <g stroke="#94a3b8" stroke-width="1.5">
+        <rect x="88" y="40" width="28" height="14" rx="2" fill="#e2e8f0"/>
+        <rect x="88" y="58" width="28" height="14" rx="2" fill="#e2e8f0"/>
+        <rect x="88" y="76" width="28" height="14" rx="2" fill="#e2e8f0"/>
+    </g>
+    <circle cx="94" cy="47" r="2" fill="#22d3ee"/>
+    <circle cx="94" cy="65" r="2" fill="#22d3ee"/>
+    <circle cx="94" cy="83" r="2" fill="#22d3ee"/>
+</svg>

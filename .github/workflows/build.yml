@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  push:
+    branches: [main, "claude/**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Compile
+        run: npm run compile
+
+      - name: Test
+        run: npm test
+
+      - name: Package .vsix
+        run: npx --yes @vscode/vsce package --out git-sftp-publisher.vsix
+
+      - name: Upload .vsix
+        uses: actions/upload-artifact@v4
+        with:
+          name: git-sftp-publisher-vsix
+          path: git-sftp-publisher.vsix
+          if-no-files-found: error

@@ -1,0 +1,108 @@
+{
+  "name": "git-sftp-publisher",
+  "displayName": "Git SFTP Publisher",
+  "description": "Deploy only the files changed between a selected Git commit and HEAD via SFTP. Multi-profile, dry-run preview, .sftpignore support.",
+  "version": "0.1.0",
+  "publisher": "ashishgusai",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["SCM Providers", "Other"],
+  "keywords": ["sftp", "ssh", "deploy", "git", "diff", "publish"],
+  "main": "./out/extension.js",
+  "activationEvents": ["onStartupFinished"],
+  "extensionDependencies": ["vscode.git"],
+  "contributes": {
+    "commands": [
+      {
+        "command": "gitSftpPublisher.pushFromCommit",
+        "title": "Deploy Changes from Commit...",
+        "category": "Git SFTP"
+      },
+      {
+        "command": "gitSftpPublisher.deployFile",
+        "title": "Deploy File to SFTP Profile",
+        "category": "Git SFTP"
+      },
+      {
+        "command": "gitSftpPublisher.createSampleConfig",
+        "title": "Create Sample sftp.json",
+        "category": "Git SFTP"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        { "command": "gitSftpPublisher.pushFromCommit" },
+        { "command": "gitSftpPublisher.deployFile", "when": "editorIsOpen" },
+        { "command": "gitSftpPublisher.createSampleConfig" }
+      ],
+      "explorer/context": [
+        {
+          "when": "!explorerResourceIsFolder",
+          "command": "gitSftpPublisher.deployFile",
+          "group": "7_modification@10"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "gitSftpPublisher.deployFile",
+          "group": "1_modification"
+        }
+      ],
+      "scm/title": [
+        {
+          "command": "gitSftpPublisher.pushFromCommit",
+          "group": "navigation",
+          "when": "scmProvider == git"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Git SFTP Publisher",
+      "properties": {
+        "gitSftpPublisher.recentCommitLimit": {
+          "type": "number",
+          "default": 30,
+          "minimum": 5,
+          "maximum": 200,
+          "description": "How many recent commits to list when picking a baseline commit."
+        },
+        "gitSftpPublisher.warnOnDirtyWorkingTree": {
+          "type": "boolean",
+          "default": true,
+          "description": "Warn before deploying if the working tree has uncommitted or staged changes (those changes will NOT be included in the diff)."
+        },
+        "gitSftpPublisher.confirmDestructive": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show an extra modal confirmation when a deploy will delete files on the remote (profile.deleteRemoteFiles = true)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && mocha",
+    "package": "vsce package",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "minimatch": "^9.0.3",
+    "ssh2-sftp-client": "^10.0.3"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.0",
+    "@types/ssh2-sftp-client": "^9.0.4",
+    "@types/vscode": "^1.85.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashishgusai/git-sftp-publisher"
+  }
+}
