@@ -40,6 +40,10 @@ export async function loadProfiles(repoRoot: string): Promise<SFTPProfile[]> {
         throw new Error(`Unable to read sftp.json: ${err.message}`);
     }
 
+    return parseProfilesFromString(raw);
+}
+
+export function parseProfilesFromString(raw: string): SFTPProfile[] {
     let parsed: unknown;
     try {
         parsed = JSON.parse(raw);

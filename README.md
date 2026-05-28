@@ -106,9 +106,12 @@ The diff is **strict**: it is exactly what `git diff <selected-commit>..HEAD` re
 npm install
 npm run compile        # one-shot
 npm run watch          # rebuild on save
+npm test               # mocha unit tests for diff/ignore/profile parsing
 ```
 
 Press `F5` in VS Code to launch an Extension Development Host with the extension loaded.
+
+GitHub Actions builds, tests, and packages on every push to `main` / `claude/**` and on PRs targeting `main` (see `.github/workflows/build.yml`); the resulting `.vsix` is uploaded as a build artifact.
 
 ## Package as `.vsix`
 
@@ -119,6 +122,10 @@ vsce package
 
 Install the resulting `git-sftp-publisher-X.Y.Z.vsix` via VS Code: Extensions view -> ... menu -> *Install from VSIX...*
 
+## Icon
+
+The marketplace icon source lives at `media/icon.svg`. Convert to a 128x128 PNG (e.g. `rsvg-convert -w 128 -h 128 media/icon.svg -o media/icon.png`) and add `"icon": "media/icon.png"` to `package.json` before publishing to the marketplace.
+
 ## License
 
-MIT.
+MIT - see [LICENSE](LICENSE).

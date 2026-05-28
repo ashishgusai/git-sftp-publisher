@@ -57,11 +57,11 @@ export async function pickRepository(api: GitAPI, hintUri?: vscode.Uri): Promise
     return picked?.repo;
 }
 
-function toPosix(p: string): string {
+export function toPosix(p: string): string {
     return p.split(path.sep).join('/');
 }
 
-function joinRemote(remoteRoot: string, relPosix: string): string {
+export function joinRemote(remoteRoot: string, relPosix: string): string {
     const root = remoteRoot.replace(/\/+$/, '');
     const rel = relPosix.replace(/^\/+/, '');
     return `${root}/${rel}`;
