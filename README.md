@@ -1,0 +1,1 @@
+# git-sftp-publisher
